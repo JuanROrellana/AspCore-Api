@@ -12,7 +12,7 @@ using WebApiAuth.ViewModels;
 
 namespace WebApiAuth.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/applicationUser")]
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -25,10 +25,13 @@ namespace WebApiAuth.Controllers
         }
 
         // GET: api/<controller>
-        [HttpGet]
+        [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register(ApplicationUserViewModel model)
+        public async Task<IActionResult> Register([FromBody]ApplicationUserViewModel model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
@@ -38,8 +41,8 @@ namespace WebApiAuth.Controllers
 
             try
             {
-                var result = _userManager.CreateAsync(user, model.Password);
-                return Ok();
+                var result = await _userManager.CreateAsync(user, model.Password);
+                return Ok(result);
             }
             catch (Exception ex)
             {

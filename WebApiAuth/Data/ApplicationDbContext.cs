@@ -16,6 +16,15 @@ namespace WebApiAuth.Data
             
         }
 
-        public DbSet<ApplicationUser> ApplicationUser;
+        public DbSet<ApplicationUser> ApplicationUsers;
+        public DbSet<Role> Roles;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<ApplicationUser>(entity => entity.ToTable("Users"));
+
+            builder.Entity<Role>(entity => entity.ToTable("Roles"));
+        }
     }
 }
