@@ -46,7 +46,6 @@ namespace WebApiAuth.Controllers
 
             try
             {
-                _logger.LogError($"Exception throw while register");
                 var result = await _userManager.CreateAsync(user, model.Password);
                 return Ok(result);
             }
