@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 using WebApiAuth.Dto;
 using WebApiAuth.Models;
+using WebApiAuth.Services;
 using WebApiAuth.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,9 +19,12 @@ namespace WebApiAuth.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        //private static Logger Logger = LogManager.GetCurrentClassLogger();
+        private readonly ILoggerManager _logger;
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            ILoggerManager logger)
         {
+            _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -46,6 +51,7 @@ namespace WebApiAuth.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Exception throw while register: {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
