@@ -18,6 +18,8 @@ namespace WebApiAuth.Data
 
         public DbSet<ApplicationUser> ApplicationUsers;
         public DbSet<Role> Roles;
+        public DbSet<Owner> Owners { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
