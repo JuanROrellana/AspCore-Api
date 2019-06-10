@@ -34,5 +34,10 @@ namespace WebApiAuth.Extensions
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
         }
+
+        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
+        {
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+        }
     }
 }

@@ -15,13 +15,12 @@ using WebApiAuth.ViewModels;
 namespace WebApiAuth.Controllers
 {
     [Route("api/applicationUser")]
-    public class ApplicationUserController : Controller
+    public class AuthenticationController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //private static Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly ILoggerManager _logger;
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             ILoggerManager logger)
         {
             _logger = logger;
